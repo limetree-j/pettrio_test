@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<p>Pettrio 가입하기</p>
+<label for="username"><b>Username</b></label>
+<input id="username" type="text" placeholder="Enter Username" name="username" required>
+<br/>
+<label for="password"><b>Password</b></label>
+<input id="password" type="password" placeholder="Enter Password" name="password" required>
+<br/>
+<button type="button" th:onclick="'dataSend();'">Register</button>
+<p id="result"></p>
+</body>
+<script>
+    function dataSend() {
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        var user = {
+            username: username,
+            password: password
+        };
+        $.ajax({
+            url: "user/signup",
+            type: "post",
+            accept: "application/json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(user),
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#result').innerText = "error";
+                console.log(textStatus);
+            }
+        });
+    }
+</script>
+
+</html>
